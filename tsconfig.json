@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "types": ["vitest/globals"],
+    "jsx": "react",
+    "jsxFactory": "createElement"
+  },
+  "include": ["src"]
+}
