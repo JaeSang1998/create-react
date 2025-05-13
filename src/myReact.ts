@@ -10,6 +10,26 @@ export type VNode = {
 
 const TEXT_ELEMENT = Symbol("TEXT_ELEMENT");
 
+export const render = (vNode: VNode, container: Element | DocumentFragment) => {
+  const dom: Node =
+    vNode.type === TEXT_ELEMENT
+      ? document.createTextNode(vNode.props.value)
+      : document.createElement(vNode.type as string);
+
+  const isProperty = (key: string) => key !== "children";
+  Object.keys(vNode.props)
+    .filter(isProperty)
+    .forEach((name) => {
+      (dom as any)[name] = vNode.props[name];
+    });
+
+  vNode.props.children.forEach((child: VNode) => {
+    render(child, dom as Element);
+  });
+
+  container.appendChild(dom);
+};
+
 const createTextElement = (text: string): VNode => {
   return {
     type: TEXT_ELEMENT,
